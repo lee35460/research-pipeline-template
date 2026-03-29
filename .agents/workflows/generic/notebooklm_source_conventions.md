@@ -47,6 +47,9 @@ All sources added to any NotebookLM notebook in this pipeline MUST follow this f
 | `draft` | Draft spec or design candidate | `s3`–`s4` |
 | `approved` | Approved implementation spec | `s4` |
 | `validation` | Validation or ablation report | `s5` |
+| `gemini` | Gemini (or other LLM) response saved as text | `s1`–`s5` |
+| `deepseek` | DeepSeek response saved as text | `s1`–`s5` |
+| `sequential` | Sequential-thinking trace/decision log saved as text | `s2`–`s5` |
 
 ---
 
@@ -60,6 +63,10 @@ All sources added to any NotebookLM notebook in this pipeline MUST follow this f
 | `ai_ops_s3_draft_20260329` | Step 3 design candidate draft |
 | `ai_ops_s4_approved_20260329` | Approved implementation spec |
 | `ai_ops_s5_validation_20260330` | Final validation report |
+| `ai_ops_s3_gemini_20260329` | Gemini response on Step 3 design question |
+| `ai_ops_s3_gemini_20260329_02` | Second Gemini response on same day |
+| `ai_ops_s3_deepseek_20260329` | DeepSeek response on Step 3 design question |
+| `ai_ops_s3_sequential_20260329` | Sequential-thinking decision trace on Step 3 |
 
 ---
 

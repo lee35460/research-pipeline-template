@@ -72,6 +72,9 @@ All sources added to a NotebookLM notebook MUST follow this naming format:
 | `draft` | Draft spec or design candidate |
 | `approved` | Approved artifact (spec / design) |
 | `validation` | Validation or ablation report |
+| `gemini` | Gemini response text saved to NotebookLM |
+| `deepseek` | DeepSeek response text saved to NotebookLM |
+| `sequential` | Sequential-thinking trace / decision log |
 
 ### Examples
 
@@ -82,6 +85,9 @@ All sources added to a NotebookLM notebook MUST follow this naming format:
 | `vision_anomaly_s3_draft_20260330` | Step 3 design draft for vision_anomaly |
 | `ai_ops_s4_approved_20260329` | Approved implementation spec |
 | `ai_ops_s5_validation_20260330` | Final validation report |
+| `ai_ops_s3_gemini_20260329` | Gemini response captured at Step 3 |
+| `ai_ops_s3_deepseek_20260329` | DeepSeek response captured at Step 3 |
+| `ai_ops_s3_sequential_20260329` | Sequential-thinking trace captured at Step 3 |
 
 ---
 
