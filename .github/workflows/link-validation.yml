@@ -47,9 +47,9 @@ jobs:
           # Prompts
           check_path .github/prompts/generic-step0-nlm-setup.prompt.md
           check_path .github/prompts/generic-step1-capture.prompt.md
-          check_path .github/prompts/generic-step2-store.prompt.md
-          check_path .github/prompts/generic-step3-structure.prompt.md
-          check_path .github/prompts/generic-step4-spec.prompt.md
+          check_path .github/prompts/generic-step2-structure.prompt.md
+          check_path .github/prompts/generic-step3-spec.prompt.md
+          check_path .github/prompts/generic-step4-implement.prompt.md
           check_path .github/prompts/generic-step5-validate.prompt.md
 
           # CI
