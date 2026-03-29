@@ -165,6 +165,13 @@ else
   esac
 fi
 
+# Git Branch Isolation
+if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  echo "=== Git Workspace Isolation ==="
+  git checkout -b "research/$TOPIC" || git checkout "research/$TOPIC"
+  echo "[OK] Switched to isolated branch: research/$TOPIC"
+fi
+
 echo ""
 echo "Next steps:"
 echo "  1. Run /generic-step0-nlm-setup to finalize NotebookLM setup"

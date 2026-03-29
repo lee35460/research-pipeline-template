@@ -89,6 +89,11 @@
 - 롤백은 예외가 아니라 정식 품질 절차로 취급한다.
 - `draft` 상태의 스펙을 근거로 코드 구현을 진행하면 안 된다.
 
+## Versioning & Context Control
+
+- 아카이빙(Archiving) 강제: 문서가 개정(Revision)되거나 롤백으로 인해 재작성될 경우, 파일 덮어쓰기로 인한 정보 유실을 막기 위해 구버전 문서는 즉시 `research/history/` 폴더로 이동(`mv`)시켜야 합니다.
+- NotebookLM 컨텍스트 정리: 신규 버전을 NotebookLM에 업로드한 직후, 반드시 기존 구버전 소스를 NotebookLM에서 삭제하거나 체크 해제하여 AI의 컨텍스트 참조 충돌(Split-brain/Hallucination)을 원천 차단해야 합니다.
+
 ## Git Checkpoint Protocol
 
 - 필수 커밋 지점: 에이전트(Copilot)는 Step 3(Spec) 완료 직후와 Step 5(Validation) 완료 직후, 반드시 터미널에서 `git add .` 및 `git commit -m "[<topic>] Step X completed"` 를 실행하여 상태를 스냅샷(Snapshot)으로 저장해야 합니다.
