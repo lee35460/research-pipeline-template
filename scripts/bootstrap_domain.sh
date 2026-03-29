@@ -99,28 +99,13 @@ EOF
 cat > "$TOPIC_APPROVAL_REGISTRY" <<EOF
 # ${TOPIC} Approval Registry
 
-## Rules
-- draft는 구현 근거로 사용 금지
-- approved만 implementation_spec 근거로 사용
-- validation pass 없으면 완료 선언 금지
-
-## Design Approval Ledger
-
-| Topic | Date | Artifact | Type | Status | Approved By | Evidence Sources | Notes |
-|---|---|---|---|---|---|---|---|
-| ${TOPIC} |  |  | design_draft/design_approved | draft/approved |  |  |  |
-
 ## Spec Approval Ledger
-
 | Topic | Date | Artifact | Type | Status | Approved By | Based on Approved Design | Notes |
 |---|---|---|---|---|---|---|---|
-| ${TOPIC} |  |  | implementation_spec | draft/approved |  |  |  |
 
 ## Validation Ledger
-
 | Topic | Date | Artifact | Risk Level | Final Verdict | Blocking Issues | Notes |
 |---|---|---|---|---|---|---|
-| ${TOPIC} |  |  | low/medium/high | pass/fail |  |  |
 EOF
 
 echo "[DONE] Domain bootstrap completed for topic: $TOPIC"
