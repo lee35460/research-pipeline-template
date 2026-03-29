@@ -22,7 +22,7 @@ Output:
 5. Equation-to-Code Mapping
 6. Constraints
 7. Validation Criteria
-8. Registry Append Command: 표 오염 방지를 위해 마크다운 행 자체가 아니라, 터미널에서 실행할 Bash append 명령어 1줄을 코드 블록으로 출력해 주세요. 반드시 `echo "\\| Topic \\| Date \\| Artifact \\| Type \\| Status \\| Approved By \\| Based on Approved Design \\| Notes \\|" >> research/<topic_slug>/approval_registry.md` 형식으로 파이프(`\\|`)를 이스케이프해야 합니다.
+8. Registry Append Command: 표 오염 방지를 위해 마크다운 행 자체가 아니라, 터미널에서 실행할 Bash append 명령어 1줄을 코드 블록으로 출력해 주세요. 반드시 `echo "| Topic | Date | Artifact | Type | Status | Approved By | Based on Approved Design | Notes |" >> research/<topic_slug>/approval_registry.md` 형식으로 출력하세요.
 
 Do not generate code yet.
 

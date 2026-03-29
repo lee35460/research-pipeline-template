@@ -88,3 +88,8 @@
 운영 규칙:
 - 롤백은 예외가 아니라 정식 품질 절차로 취급한다.
 - `draft` 상태의 스펙을 근거로 코드 구현을 진행하면 안 된다.
+
+## Git Checkpoint Protocol
+
+- 필수 커밋 지점: 에이전트(Copilot)는 Step 3(Spec) 완료 직후와 Step 5(Validation) 완료 직후, 반드시 터미널에서 `git add .` 및 `git commit -m "[<topic>] Step X completed"` 를 실행하여 상태를 스냅샷(Snapshot)으로 저장해야 합니다.
+- 이유: 안전한 Rollback Protocol 실행을 위한 베이스라인 확보.
