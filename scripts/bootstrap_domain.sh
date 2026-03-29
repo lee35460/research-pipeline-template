@@ -109,7 +109,9 @@ cat > "$TOPIC_APPROVAL_REGISTRY" <<EOF
 EOF
 
 echo "[DONE] Domain bootstrap completed for topic: $TOPIC"
-echo "- Created: research/, development/"
+echo "- Repo root: $ROOT_DIR"
+echo "- Created (repo-relative): research/${TOPIC}/..."
+echo "- Created (repo-relative): development/${TOPIC}/..."
 echo "- Created: $TOPIC_RULE_FILE"
 echo "- Created: $MAP_FILE"
 echo "- Created: $TOPIC_APPROVAL_REGISTRY"
