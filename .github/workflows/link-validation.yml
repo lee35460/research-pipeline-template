@@ -1,0 +1,76 @@
+name: Link Validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check critical file paths exist
+        run: |
+          set -euo pipefail
+          FAIL=0
+
+          check_path() {
+            if [[ -e "$1" ]]; then
+              echo "[OK] $1"
+            else
+              echo "[MISSING] $1"
+              FAIL=1
+            fi
+          }
+
+          # Core scripts
+          check_path scripts/pipeline_gate_check.sh
+          check_path scripts/bootstrap_domain.sh
+          check_path scripts/setup.sh
+
+          # Smoke tests
+          check_path tests/run_smoke_tests.sh
+
+          # Agent rules and workflows
+          check_path .agents/rules/generic_workspace_rules.md
+          check_path .agents/workflows/generic/README.md
+          check_path .agents/workflows/generic/approval_registry.md
+          check_path .agents/workflows/generic/pipeline_runbook.md
+          check_path .agents/workflows/generic/artifact_templates.md
+          check_path .agents/workflows/generic/notebooklm_notebook_registry.md
+          check_path .agents/workflows/generic/notebooklm_source_conventions.md
+
+          # Prompts
+          check_path .github/prompts/generic-step0-nlm-setup.prompt.md
+          check_path .github/prompts/generic-step1-capture.prompt.md
+          check_path .github/prompts/generic-step2-store.prompt.md
+          check_path .github/prompts/generic-step3-structure.prompt.md
+          check_path .github/prompts/generic-step4-spec.prompt.md
+          check_path .github/prompts/generic-step5-validate.prompt.md
+
+          # CI
+          check_path .github/workflows/pipeline-gates.yml
+
+          # Meta
+          check_path LICENSE
+          check_path CONTRIBUTING.md
+          check_path README.md
+          check_path CHANGELOG.md
+          check_path VERSION
+
+          # Docs
+          check_path docs/pipeline_diagram.md
+          check_path docs/mcp_routing.md
+          check_path docs/notebooklm_integration.md
+
+          if [[ $FAIL -ne 0 ]]; then
+            echo ""
+            echo "[ERROR] One or more expected files are missing."
+            exit 1
+          fi
+          echo ""
+          echo "All path checks passed."
