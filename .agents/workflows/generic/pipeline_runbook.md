@@ -85,7 +85,7 @@
 - hidden assumption이 구현에 영향을 줄 정도로 치명적
 
 강제 절차:
-1. 해당 토픽의 `approval_registry.md`에서 문제 스펙 상태를 `approved`에서 `draft`로 강등
+1. 해당 토픽의 `approval_registry.md` **맨 아래에** 기존과 동일한 Artifact 이름으로 Status를 `draft`(또는 Final Verdict를 `fail`)로 기재한 새로운 행(Row)을 추가하여 과거의 `approved` 기록을 무효화(Last Write Wins)할 것. 기존 행을 직접 수정하지 말 것.
 2. `Notes` 컬럼에 롤백 사유와 재진입 조건 명시
 3. 단계 복귀:
 	- 설계 결함이면 Step 2 또는 Step 3으로 복귀

@@ -78,10 +78,11 @@ has_matching_row() {
     }
 
     BEGIN {
-      found = 0
       in_table = 0
       topic_col = type_col = status_col = verdict_col = 0
       topic_lc = tolower(topic)
+      final_status = ""
+      final_verdict = ""
     }
 
     /^[[:space:]]*\|/ {
@@ -131,9 +132,8 @@ has_matching_row() {
         }
         row_type = tolower(trim(cols[type_col]))
         row_status = trim(cols[status_col])
-        if (row_type == "implementation_spec" && row_status == "approved") {
-          found = 1
-          exit 0
+        if (row_type == "implementation_spec") {
+          final_status = row_status
         }
       } else if (mode == "pre-complete") {
         row_verdict = ""
@@ -143,22 +143,31 @@ has_matching_row() {
           row_verdict = trim(cols[status_col])
         }
 
-        if (row_verdict == "pass") {
+        if (row_verdict != "") {
           if (type_col > 0) {
             row_type = tolower(trim(cols[type_col]))
-            if (row_type != "" && row_type != "validation_report" && row_type != "validation") {
-              next
+            if (row_type == "" || row_type == "validation_report" || row_type == "validation") {
+              final_verdict = row_verdict
             }
+          } else {
+            final_verdict = row_verdict
           }
-          found = 1
-          exit 0
         }
       }
     }
 
     END {
-      if (found == 1) {
-        exit 0
+      if (mode == "pre-implement") {
+        if (final_status == "approved") {
+          exit 0
+        }
+        exit 1
+      }
+      if (mode == "pre-complete") {
+        if (final_verdict == "pass") {
+          exit 0
+        }
+        exit 1
       }
       exit 1
     }
