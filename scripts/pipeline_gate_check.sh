@@ -79,10 +79,8 @@ has_matching_row() {
 
     BEGIN {
       in_table = 0
-      topic_col = type_col = status_col = verdict_col = 0
+      topic_col = artifact_col = type_col = status_col = verdict_col = 0
       topic_lc = tolower(topic)
-      final_status = ""
-      final_verdict = ""
     }
 
     /^[[:space:]]*\|/ {
@@ -101,11 +99,13 @@ has_matching_row() {
 
       if (norm(cols[1]) == "topic") {
         in_table = 1
-        topic_col = type_col = status_col = verdict_col = 0
+        topic_col = artifact_col = type_col = status_col = verdict_col = 0
         for (i = 1; i <= n; i++) {
           key = norm(cols[i])
           if (key == "topic") {
             topic_col = i
+          } else if (key == "artifact" || key == "artifactname") {
+            artifact_col = i
           } else if (key == "type" || key == "artifacttype") {
             type_col = i
           } else if (key == "status") {
@@ -126,6 +126,14 @@ has_matching_row() {
         next
       }
 
+      if (artifact_col == 0) {
+        next
+      }
+      row_artifact = trim(cols[artifact_col])
+      if (row_artifact == "") {
+        next
+      }
+
       if (mode == "pre-implement") {
         if (type_col == 0 || status_col == 0) {
           next
@@ -133,7 +141,7 @@ has_matching_row() {
         row_type = tolower(trim(cols[type_col]))
         row_status = trim(cols[status_col])
         if (row_type == "implementation_spec") {
-          final_status = row_status
+          status_map[row_artifact] = row_status
         }
       } else if (mode == "pre-complete") {
         row_verdict = ""
@@ -147,10 +155,10 @@ has_matching_row() {
           if (type_col > 0) {
             row_type = tolower(trim(cols[type_col]))
             if (row_type == "" || row_type == "validation_report" || row_type == "validation") {
-              final_verdict = row_verdict
+              verdict_map[row_artifact] = row_verdict
             }
           } else {
-            final_verdict = row_verdict
+            verdict_map[row_artifact] = row_verdict
           }
         }
       }
@@ -158,14 +166,18 @@ has_matching_row() {
 
     END {
       if (mode == "pre-implement") {
-        if (final_status == "approved") {
-          exit 0
+        for (art in status_map) {
+          if (status_map[art] == "approved") {
+            exit 0
+          }
         }
         exit 1
       }
       if (mode == "pre-complete") {
-        if (final_verdict == "pass") {
-          exit 0
+        for (art in verdict_map) {
+          if (verdict_map[art] == "pass") {
+            exit 0
+          }
         }
         exit 1
       }

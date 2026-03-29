@@ -59,6 +59,23 @@ set -e
 rm -f "$TMPFILE"
 if [[ $EXIT -eq 0 ]]; then ok "pre-implement approved → exit 0"; else fail "pre-implement approved → exit 0 (got $EXIT)"; fi
 
+# ── Gate script: artifact isolation — spec_A approved + spec_B draft → exit 0 ──
+echo ""
+echo "[TEST] gate_check: artifact isolation keeps approved artifact → exit 0"
+TMPFILE="$(mktemp)"
+cat >> "$TMPFILE" <<'ROW'
+| Topic | Date | Artifact | Type | Status |
+|---|---|---|---|---|
+| smoke_topic | 2026-03-29 | spec_A | implementation_spec | approved |
+| smoke_topic | 2026-03-30 | spec_B | implementation_spec | draft |
+ROW
+set +e
+"$ROOT_DIR/scripts/pipeline_gate_check.sh" pre-implement "$TOPIC" "$TMPFILE" > /dev/null 2>&1
+EXIT=$?
+set -e
+rm -f "$TMPFILE"
+if [[ $EXIT -eq 0 ]]; then ok "artifact isolation approved(spec_A)+draft(spec_B) → exit 0"; else fail "artifact isolation approved(spec_A)+draft(spec_B) → exit 0 (got $EXIT)"; fi
+
 # ── Gate script: last write wins — approved then draft → exit 1 ─────────────
 echo ""
 echo "[TEST] gate_check: last write wins — approved then draft → exit 1"

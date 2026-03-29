@@ -25,7 +25,7 @@ Output:
 5. Risk Level
 6. Required Fixes
 7. Final Verdict
-8. Registry Append Command: 표 오염 방지를 위해 마크다운 행 자체가 아니라, 터미널에서 실행할 Bash append 명령어 1줄을 코드 블록으로 출력해 주세요. 반드시 `echo "| Topic | Date | Artifact | Risk Level | Final Verdict | Blocking Issues | Notes |" >> research/<topic_slug>/approval_registry.md` 형식으로 출력하세요. 단, Final Verdict 컬럼 값은 반드시 소문자 `pass` 또는 `fail` 중 하나만 정확히 사용해야 합니다(다른 단어, 대문자 절대 금지).
+8. Registry Append Command: 표 오염 방지를 위해 마크다운 행 자체가 아니라, 터미널에서 실행할 Bash append 명령어 1줄을 코드 블록으로 출력해 주세요. 반드시 `echo "| Topic | Date | Artifact | Risk Level | Final Verdict | Blocking Issues | Notes |" >> research/<topic_slug>/approval_registry.md` 형식으로 출력하세요. 단, Final Verdict 컬럼 값은 반드시 소문자 `pass` 또는 `fail` 중 하나만 정확히 사용해야 합니다(다른 단어, 대문자 절대 금지). 또한 Artifact 컬럼 이름은 절대 임의로 지어내지 말고, 반드시 `<topic_slug>_validation_v<버전숫자>` 형식의 엄격한 네이밍 규칙을 따르세요.
 
 ---
 **[Post-Step Action: NotebookLM Sync]**
