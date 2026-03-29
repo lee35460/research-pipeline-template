@@ -10,6 +10,7 @@ ok()   { echo "  [PASS] $1"; PASS=$((PASS+1)); }
 fail() { echo "  [FAIL] $1"; FAIL=$((FAIL+1)); }
 
 echo "--- Smoke Tests ---"
+TOPIC="smoke_topic"
 
 # ── Gate script: usage error (no args) ──────────────────────────────────────
 echo ""
@@ -33,10 +34,10 @@ if [[ $EXIT -eq 2 ]]; then ok "invalid-mode exit 2"; else fail "invalid-mode exi
 echo ""
 echo "[TEST] gate_check: pre-implement on empty registry → exit 1"
 TMPFILE="$(mktemp)"
-echo "| id | date | artifact_type | status |" > "$TMPFILE"
-echo "|---|---|---|---|" >> "$TMPFILE"
+echo "| Topic | Date | Artifact | Type | Status |" > "$TMPFILE"
+echo "|---|---|---|---|---|" >> "$TMPFILE"
 set +e
-"$ROOT_DIR/scripts/pipeline_gate_check.sh" pre-implement "$TMPFILE" > /dev/null 2>&1
+"$ROOT_DIR/scripts/pipeline_gate_check.sh" pre-implement "$TMPFILE" "$TOPIC" > /dev/null 2>&1
 EXIT=$?
 set -e
 rm -f "$TMPFILE"
@@ -47,28 +48,64 @@ echo ""
 echo "[TEST] gate_check: pre-implement with approved row → exit 0"
 TMPFILE="$(mktemp)"
 cat >> "$TMPFILE" <<'ROW'
-| spec_v1 | 2026-03-29 | implementation_spec | approved |
+| Topic | Date | Artifact | Type | Status |
+|---|---|---|---|---|
+| smoke_topic | 2026-03-29 | spec_v1 | implementation_spec | approved |
 ROW
 set +e
-"$ROOT_DIR/scripts/pipeline_gate_check.sh" pre-implement "$TMPFILE" > /dev/null 2>&1
+"$ROOT_DIR/scripts/pipeline_gate_check.sh" pre-implement "$TMPFILE" "$TOPIC" > /dev/null 2>&1
 EXIT=$?
 set -e
 rm -f "$TMPFILE"
 if [[ $EXIT -eq 0 ]]; then ok "pre-implement approved → exit 0"; else fail "pre-implement approved → exit 0 (got $EXIT)"; fi
+
+# ── Gate script: topic isolation on pre-implement → exit 1 ─────────────────
+echo ""
+echo "[TEST] gate_check: pre-implement ignores other topic rows → exit 1"
+TMPFILE="$(mktemp)"
+cat >> "$TMPFILE" <<'ROW'
+| Topic | Date | Artifact | Type | Status |
+|---|---|---|---|---|
+| another_topic | 2026-03-29 | spec_v1 | implementation_spec | approved |
+ROW
+set +e
+"$ROOT_DIR/scripts/pipeline_gate_check.sh" pre-implement "$TMPFILE" "$TOPIC" > /dev/null 2>&1
+EXIT=$?
+set -e
+rm -f "$TMPFILE"
+if [[ $EXIT -eq 1 ]]; then ok "pre-implement topic isolation → exit 1"; else fail "pre-implement topic isolation → exit 1 (got $EXIT)"; fi
 
 # ── Gate script: pre-complete on pass row → exit 0 ──────────────────────────
 echo ""
 echo "[TEST] gate_check: pre-complete with pass row → exit 0"
 TMPFILE="$(mktemp)"
 cat >> "$TMPFILE" <<'ROW'
-| validation_v1 | 2026-03-29 | validation_report | pass |
+| Topic | Date | Artifact | Risk Level | Final Verdict |
+|---|---|---|---|---|
+| smoke_topic | 2026-03-29 | validation_v1 | low | pass |
 ROW
 set +e
-"$ROOT_DIR/scripts/pipeline_gate_check.sh" pre-complete "$TMPFILE" > /dev/null 2>&1
+"$ROOT_DIR/scripts/pipeline_gate_check.sh" pre-complete "$TMPFILE" "$TOPIC" > /dev/null 2>&1
 EXIT=$?
 set -e
 rm -f "$TMPFILE"
 if [[ $EXIT -eq 0 ]]; then ok "pre-complete pass → exit 0"; else fail "pre-complete pass → exit 0 (got $EXIT)"; fi
+
+# ── Gate script: topic isolation on pre-complete → exit 1 ──────────────────
+echo ""
+echo "[TEST] gate_check: pre-complete ignores other topic rows → exit 1"
+TMPFILE="$(mktemp)"
+cat >> "$TMPFILE" <<'ROW'
+| Topic | Date | Artifact | Risk Level | Final Verdict |
+|---|---|---|---|---|
+| another_topic | 2026-03-29 | validation_v1 | low | pass |
+ROW
+set +e
+"$ROOT_DIR/scripts/pipeline_gate_check.sh" pre-complete "$TMPFILE" "$TOPIC" > /dev/null 2>&1
+EXIT=$?
+set -e
+rm -f "$TMPFILE"
+if [[ $EXIT -eq 1 ]]; then ok "pre-complete topic isolation → exit 1"; else fail "pre-complete topic isolation → exit 1 (got $EXIT)"; fi
 
 # ── Bootstrap: no slug → exit 2 ─────────────────────────────────────────────
 echo ""
@@ -95,7 +132,7 @@ TMPROOT="$(mktemp -d)"
 mkdir -p "$TMPROOT/.agents/rules"
 mkdir -p "$TMPROOT/.agents/workflows/generic"
 set +e
-BOOTSTRAP_ROOT_DIR="$TMPROOT" "$ROOT_DIR/scripts/bootstrap_domain.sh" smoke_test_topic > /dev/null 2>&1
+BOOTSTRAP_ROOT_DIR="$TMPROOT" "$ROOT_DIR/scripts/bootstrap_domain.sh" smoke_test_topic < /dev/null > /dev/null 2>&1
 EXIT=$?
 set -e
 RULE_FILE="$TMPROOT/.agents/rules/smoke_test_topic_workspace_rules.md"

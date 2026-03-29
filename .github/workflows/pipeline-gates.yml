@@ -15,10 +15,10 @@ jobs:
         run: chmod +x scripts/pipeline_gate_check.sh
 
       - name: Pre-implement gate
-        run: ./scripts/pipeline_gate_check.sh pre-implement .agents/workflows/generic/approval_registry.md
+        run: ./scripts/pipeline_gate_check.sh pre-implement .agents/workflows/generic/approval_registry.md toy_topic
 
       - name: Pre-complete gate
-        run: ./scripts/pipeline_gate_check.sh pre-complete .agents/workflows/generic/approval_registry.md
+        run: ./scripts/pipeline_gate_check.sh pre-complete .agents/workflows/generic/approval_registry.md toy_topic
 
       - name: Smoke tests
         run: |

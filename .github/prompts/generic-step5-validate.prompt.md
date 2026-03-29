@@ -3,7 +3,7 @@ description: "Generic Step 5: Create validation_report and enforce completion ga
 ---
 
 Before completion decision, run:
-- `scripts/pipeline_gate_check.sh pre-complete .agents/workflows/generic/approval_registry.md`
+- `scripts/pipeline_gate_check.sh pre-complete .agents/workflows/generic/approval_registry.md <topic_slug>`
 
 If gate fails, keep status incomplete and list required fixes.
 

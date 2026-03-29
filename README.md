@@ -27,8 +27,8 @@ bash scripts/setup.sh   # first-time setup: permissions + optional bootstrap
 5. Track approval status in `.agents/workflows/generic/approval_registry.md`
 
 ## Gate Commands
-- scripts/pipeline_gate_check.sh pre-implement .agents/workflows/generic/approval_registry.md
-- scripts/pipeline_gate_check.sh pre-complete .agents/workflows/generic/approval_registry.md
+- scripts/pipeline_gate_check.sh pre-implement .agents/workflows/generic/approval_registry.md <topic_slug>
+- scripts/pipeline_gate_check.sh pre-complete .agents/workflows/generic/approval_registry.md <topic_slug>
 
 ## MCP Types and Roles
 

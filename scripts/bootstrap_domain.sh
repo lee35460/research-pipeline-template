@@ -22,8 +22,11 @@ WORKFLOW_DIR="$ROOT_DIR/.agents/workflows/generic"
 TOPIC_RULE_FILE="$RULES_DIR/${TOPIC}_workspace_rules.md"
 MAP_FILE="$WORKFLOW_DIR/${TOPIC}_folder_rule_map.md"
 NLM_REGISTRY="$WORKFLOW_DIR/notebooklm_notebook_registry.md"
+TOPIC_DIR="$RESEARCH_DIR/$TOPIC"
+TOPIC_APPROVAL_REGISTRY="$TOPIC_DIR/approval_registry.md"
 
 mkdir -p \
+  "$TOPIC_DIR" \
   "$RESEARCH_DIR/raw" \
   "$RESEARCH_DIR/history" \
   "$RESEARCH_DIR/candidates" \
@@ -89,14 +92,42 @@ cat > "$MAP_FILE" <<EOF
 | development/docs | Dev docs | implementation notes | generic + ${TOPIC} |
 
 ## Pipeline Gate Usage
-- pre-implement: scripts/pipeline_gate_check.sh pre-implement .agents/workflows/generic/approval_registry.md
-- pre-complete: scripts/pipeline_gate_check.sh pre-complete .agents/workflows/generic/approval_registry.md
+- pre-implement: scripts/pipeline_gate_check.sh pre-implement research/${TOPIC}/approval_registry.md ${TOPIC}
+- pre-complete: scripts/pipeline_gate_check.sh pre-complete research/${TOPIC}/approval_registry.md ${TOPIC}
+EOF
+
+cat > "$TOPIC_APPROVAL_REGISTRY" <<EOF
+# ${TOPIC} Approval Registry
+
+## Rules
+- draft는 구현 근거로 사용 금지
+- approved만 implementation_spec 근거로 사용
+- validation pass 없으면 완료 선언 금지
+
+## Design Approval Ledger
+
+| Topic | Date | Artifact | Type | Status | Approved By | Evidence Sources | Notes |
+|---|---|---|---|---|---|---|---|
+| ${TOPIC} |  |  | design_draft/design_approved | draft/approved |  |  |  |
+
+## Spec Approval Ledger
+
+| Topic | Date | Artifact | Type | Status | Approved By | Based on Approved Design | Notes |
+|---|---|---|---|---|---|---|---|
+| ${TOPIC} |  |  | implementation_spec | draft/approved |  |  |  |
+
+## Validation Ledger
+
+| Topic | Date | Artifact | Risk Level | Final Verdict | Blocking Issues | Notes |
+|---|---|---|---|---|---|---|
+| ${TOPIC} |  |  | low/medium/high | pass/fail |  |  |
 EOF
 
 echo "[DONE] Domain bootstrap completed for topic: $TOPIC"
 echo "- Created: research/, development/"
 echo "- Created: $TOPIC_RULE_FILE"
 echo "- Created: $MAP_FILE"
+echo "- Created: $TOPIC_APPROVAL_REGISTRY"
 
 # ── NotebookLM Notebook Registration ────────────────────────────────────────
 echo ""

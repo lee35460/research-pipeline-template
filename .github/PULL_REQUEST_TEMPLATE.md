@@ -10,8 +10,8 @@
 
 ## Checklist
 - [ ] I have run the gate checks locally:
-  - `scripts/pipeline_gate_check.sh pre-implement .agents/workflows/generic/approval_registry.md`
-  - `scripts/pipeline_gate_check.sh pre-complete .agents/workflows/generic/approval_registry.md`
+  - `scripts/pipeline_gate_check.sh pre-implement .agents/workflows/generic/approval_registry.md <topic_slug>`
+  - `scripts/pipeline_gate_check.sh pre-complete .agents/workflows/generic/approval_registry.md <topic_slug>`
 - [ ] I have run smoke tests: `tests/run_smoke_tests.sh`
 - [ ] Any new script is executable (`chmod +x`)
 - [ ] `CHANGELOG.md` updated if this is a user-visible change

@@ -5,8 +5,8 @@
 2. Keep draft/approved states explicit.
 3. Update approval registry before implementation/completion.
 4. Run gate checks locally before PR:
-   - `scripts/pipeline_gate_check.sh pre-implement .agents/workflows/generic/approval_registry.md`
-   - `scripts/pipeline_gate_check.sh pre-complete .agents/workflows/generic/approval_registry.md`
+   - `scripts/pipeline_gate_check.sh pre-implement .agents/workflows/generic/approval_registry.md <topic_slug>`
+   - `scripts/pipeline_gate_check.sh pre-complete .agents/workflows/generic/approval_registry.md <topic_slug>`
 
 ## Pull Requests
 - Include summary of changed artifacts.

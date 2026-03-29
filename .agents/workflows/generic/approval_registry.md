@@ -7,20 +7,20 @@
 
 ## Design Approval Ledger
 
-| Date | Artifact | Type | Status | Approved By | Evidence Sources | Notes |
-|---|---|---|---|---|---|---|
-|  |  | design_draft/design_approved | draft/approved |  |  |  |
+| Topic | Date | Artifact | Type | Status | Approved By | Evidence Sources | Notes |
+|---|---|---|---|---|---|---|---|
+|  |  |  | design_draft/design_approved | draft/approved |  |  |  |
 
 ## Spec Approval Ledger
 
-| Date | Artifact | Type | Status | Approved By | Based on Approved Design | Notes |
-|---|---|---|---|---|---|---|
-|  |  | implementation_spec | draft/approved |  |  |  |
-| 2026-03-29 | toy_spec_v1 | implementation_spec | approved | demo_user | toy_design_v1 | demo pass for pre-implement |
+| Topic | Date | Artifact | Type | Status | Approved By | Based on Approved Design | Notes |
+|---|---|---|---|---|---|---|---|
+|  |  |  | implementation_spec | draft/approved |  |  |  |
+| toy_topic | 2026-03-29 | toy_spec_v1 | implementation_spec | approved | demo_user | toy_design_v1 | demo pass for pre-implement |
 
 ## Validation Ledger
 
-| Date | Artifact | Risk Level | Final Verdict | Blocking Issues | Notes |
-|---|---|---|---|---|---|
-|  |  | low/medium/high | pass/fail |  |  |
-| 2026-03-29 | toy_validation_v1 | low | pass | none | demo pass for pre-complete |
+| Topic | Date | Artifact | Risk Level | Final Verdict | Blocking Issues | Notes |
+|---|---|---|---|---|---|---|
+|  |  |  | low/medium/high | pass/fail |  |  |
+| toy_topic | 2026-03-29 | toy_validation_v1 | low | pass | none | demo pass for pre-complete |
