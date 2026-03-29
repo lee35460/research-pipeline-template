@@ -28,7 +28,7 @@
 - 대화 로그, 요구사항, 수식, 설계 아이디어, 실험 계획
 
 출력:
-- `design_draft`
+- `research/<topic_slug>/notes/design_draft.md`
 - 분리 필드: `fact`, `interpretation`, `decision`, `open_question`
 - 필수 동기화: 생성 후 즉시 `mcp_notebooklm_source_add`로 NotebookLM에 소스 업로드
 
@@ -37,7 +37,7 @@
 - 단계 1 산출물
 
 출력:
-- `source_fact` 또는 `design_draft`
+- `research/<topic_slug>/notes/source_fact.md` 또는 `research/<topic_slug>/candidates/design_draft.md`
 - 필수 동기화: 생성 후 즉시 `mcp_notebooklm_source_add`로 NotebookLM에 소스 업로드
 
 ### 3) Structuring
@@ -45,7 +45,7 @@
 - NotebookLM approved 소스
 
 출력:
-- `design_draft` 또는 `design_approved`
+- `research/<topic_slug>/candidates/design_draft.md` 또는 `research/<topic_slug>/selected/design_approved.md`
 - 구조 분리: architecture / math / paper / code / experiment
 - 필수 동기화: 생성 후 즉시 `mcp_notebooklm_source_add`로 NotebookLM에 소스 업로드
 
@@ -54,7 +54,7 @@
 - `design_approved`
 
 출력:
-- `implementation_spec`
+- `research/<topic_slug>/candidates/implementation_spec.md`
 - 필수: Goal, Modules/Files, Signatures, Shapes/Data Flow, Equation-to-Code, Constraints, Validation Criteria
 - 필수 동기화: 생성 후 즉시 `mcp_notebooklm_source_add`로 NotebookLM에 소스 업로드
 
@@ -63,7 +63,8 @@
 - `implementation_spec`
 
 출력:
-- 코드 변경
+- `development/<topic_slug>/src/` 하위 코드 변경
+- `research/<topic_slug>/notes/` 하위 변경 요약/근거 문서
 - 규칙: 구조 임의 변경 금지, 신규 로직 발명 금지
 - 필수 동기화: 코드 변경 요약/근거 문서를 생성 후 즉시 `mcp_notebooklm_source_add`로 NotebookLM에 소스 업로드
 
@@ -72,7 +73,7 @@
 - 코드 + spec + approved design + 문서 서술
 
 출력:
-- `validation_report`
+- `research/<topic_slug>/ablations/validation_report.md`
 - 필수 검증: source / architecture / math-code / paper-code / hidden assumptions / TBD
 
 ## Rollback Protocol
@@ -100,7 +101,7 @@
 
 ## Versioning & Context Control
 
-- 아카이빙(Archiving) 강제: 문서가 개정(Revision)되거나 롤백으로 인해 재작성될 경우, 파일 덮어쓰기로 인한 정보 유실을 막기 위해 구버전 문서는 즉시 `research/history/` 폴더로 이동(`mv`)시켜야 합니다.
+- 아카이빙(Archiving) 강제: 문서가 개정(Revision)되거나 롤백으로 인해 재작성될 경우, 파일 덮어쓰기로 인한 정보 유실을 막기 위해 구버전 문서는 즉시 `research/<topic_slug>/history/` 폴더로 이동(`mv`)시켜야 합니다.
 - NotebookLM 컨텍스트 정리: 신규 버전을 NotebookLM에 업로드한 직후, 반드시 기존 구버전 소스를 NotebookLM에서 삭제하거나 체크 해제하여 AI의 컨텍스트 참조 충돌(Split-brain/Hallucination)을 원천 차단해야 합니다.
 
 ## Git Checkpoint Protocol
