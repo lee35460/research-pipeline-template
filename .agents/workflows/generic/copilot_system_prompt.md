@@ -25,6 +25,8 @@ knowledge -> structure -> specification -> implementation -> validation.
 - Never code directly from raw discussion.
 - Mark unclear items as TBD.
 - Do not skip final validation.
+- SSOT principle: local markdown files under `research/` are the source of truth, and NotebookLM is a read-only replica for retrieval.
+- Sync principle: immediately after creating or updating any document, call `mcp_notebooklm_source_add` to sync the latest artifact to NotebookLM.
 
 ## Pipeline Order (Strict)
 1. Knowledge Capture

@@ -21,6 +21,7 @@
 출력:
 - `design_draft`
 - 분리 필드: `fact`, `interpretation`, `decision`, `open_question`
+- 필수 동기화: 생성 후 즉시 `mcp_notebooklm_source_add`로 NotebookLM에 소스 업로드
 
 ### 2) NotebookLM Storage
 입력:
@@ -28,6 +29,7 @@
 
 출력:
 - `source_fact` 또는 `design_draft`
+- 필수 동기화: 생성 후 즉시 `mcp_notebooklm_source_add`로 NotebookLM에 소스 업로드
 
 ### 3) Structuring
 입력:
@@ -36,6 +38,7 @@
 출력:
 - `design_draft` 또는 `design_approved`
 - 구조 분리: architecture / math / paper / code / experiment
+- 필수 동기화: 생성 후 즉시 `mcp_notebooklm_source_add`로 NotebookLM에 소스 업로드
 
 ### 4) Implementation Spec
 입력:
@@ -44,6 +47,7 @@
 출력:
 - `implementation_spec`
 - 필수: Goal, Modules/Files, Signatures, Shapes/Data Flow, Equation-to-Code, Constraints, Validation Criteria
+- 필수 동기화: 생성 후 즉시 `mcp_notebooklm_source_add`로 NotebookLM에 소스 업로드
 
 ### 5) Code Implementation
 입력:
@@ -52,6 +56,7 @@
 출력:
 - 코드 변경
 - 규칙: 구조 임의 변경 금지, 신규 로직 발명 금지
+- 필수 동기화: 코드 변경 요약/근거 문서를 생성 후 즉시 `mcp_notebooklm_source_add`로 NotebookLM에 소스 업로드
 
 ### 6) Final Validation
 입력:
@@ -77,6 +82,8 @@
 	- 설계 결함이면 Step 2 또는 Step 3으로 복귀
 	- 스펙 표현 결함이면 Step 4로 복귀
 4. 재승인 전까지 Step 5(구현/완료 판단) 금지
+5. 실패 사유가 포함된 `validation_report`를 NotebookLM에 `s5_validation` 타입 소스로 업로드
+6. Step 2/3 재설계 시작 전, NotebookLM에서 과거 실패 `validation_report`를 반드시 쿼리하여 동일 원인 재발을 차단
 
 운영 규칙:
 - 롤백은 예외가 아니라 정식 품질 절차로 취급한다.

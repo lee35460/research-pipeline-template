@@ -2,6 +2,8 @@
 description: "Generic Step 3: Convert approved design into implementation_spec before coding."
 ---
 
+중요: NotebookLM에 과거 실패한 `validation_report`가 존재한다면 먼저 쿼리하고, 해당 실패 원인을 회피하도록 구성할 것.
+
 Convert approved design into `implementation_spec`.
 
 Must include:
@@ -20,6 +22,6 @@ Output:
 5. Equation-to-Code Mapping
 6. Constraints
 7. Validation Criteria
-8. Registry Row: 사용자가 approval_registry.md에 복사-붙여넣기 할 수 있도록 마크다운 테이블 행(Row) 1줄을 코드 블록으로 출력해 주세요. 단, 컬럼 구조는 반드시 | Topic | Date | Artifact | Type | Status | Approved By | Based on Approved Design | Notes | 스키마에 정확히 맞춰야 합니다.
+8. Registry Append Command: 표 오염 방지를 위해 마크다운 행 자체가 아니라, 터미널에서 실행할 Bash append 명령어 1줄을 코드 블록으로 출력해 주세요. 반드시 `echo "\\| Topic \\| Date \\| Artifact \\| Type \\| Status \\| Approved By \\| Based on Approved Design \\| Notes \\|" >> research/<topic_slug>/approval_registry.md` 형식으로 파이프(`\\|`)를 이스케이프해야 합니다.
 
 Do not generate code yet.
