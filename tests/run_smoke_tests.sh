@@ -37,7 +37,7 @@ TMPFILE="$(mktemp)"
 echo "| Topic | Date | Artifact | Type | Status |" > "$TMPFILE"
 echo "|---|---|---|---|---|" >> "$TMPFILE"
 set +e
-"$ROOT_DIR/scripts/pipeline_gate_check.sh" pre-implement "$TMPFILE" "$TOPIC" > /dev/null 2>&1
+"$ROOT_DIR/scripts/pipeline_gate_check.sh" pre-implement "$TOPIC" "$TMPFILE" > /dev/null 2>&1
 EXIT=$?
 set -e
 rm -f "$TMPFILE"
@@ -53,7 +53,7 @@ cat >> "$TMPFILE" <<'ROW'
 | smoke_topic | 2026-03-29 | spec_v1 | implementation_spec | approved |
 ROW
 set +e
-"$ROOT_DIR/scripts/pipeline_gate_check.sh" pre-implement "$TMPFILE" "$TOPIC" > /dev/null 2>&1
+"$ROOT_DIR/scripts/pipeline_gate_check.sh" pre-implement "$TOPIC" "$TMPFILE" > /dev/null 2>&1
 EXIT=$?
 set -e
 rm -f "$TMPFILE"
@@ -69,7 +69,7 @@ cat >> "$TMPFILE" <<'ROW'
 | another_topic | 2026-03-29 | spec_v1 | implementation_spec | approved |
 ROW
 set +e
-"$ROOT_DIR/scripts/pipeline_gate_check.sh" pre-implement "$TMPFILE" "$TOPIC" > /dev/null 2>&1
+"$ROOT_DIR/scripts/pipeline_gate_check.sh" pre-implement "$TOPIC" "$TMPFILE" > /dev/null 2>&1
 EXIT=$?
 set -e
 rm -f "$TMPFILE"
@@ -85,7 +85,7 @@ cat >> "$TMPFILE" <<'ROW'
 | smoke_topic | 2026-03-29 | validation_v1 | low | pass |
 ROW
 set +e
-"$ROOT_DIR/scripts/pipeline_gate_check.sh" pre-complete "$TMPFILE" "$TOPIC" > /dev/null 2>&1
+"$ROOT_DIR/scripts/pipeline_gate_check.sh" pre-complete "$TOPIC" "$TMPFILE" > /dev/null 2>&1
 EXIT=$?
 set -e
 rm -f "$TMPFILE"
@@ -101,7 +101,7 @@ cat >> "$TMPFILE" <<'ROW'
 | another_topic | 2026-03-29 | validation_v1 | low | pass |
 ROW
 set +e
-"$ROOT_DIR/scripts/pipeline_gate_check.sh" pre-complete "$TMPFILE" "$TOPIC" > /dev/null 2>&1
+"$ROOT_DIR/scripts/pipeline_gate_check.sh" pre-complete "$TOPIC" "$TMPFILE" > /dev/null 2>&1
 EXIT=$?
 set -e
 rm -f "$TMPFILE"

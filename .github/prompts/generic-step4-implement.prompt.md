@@ -3,7 +3,7 @@ description: "Generic Step 4: Implement code strictly from implementation_spec."
 ---
 
 Before coding, run:
-- `scripts/pipeline_gate_check.sh pre-implement research/<topic_slug>/approval_registry.md <topic_slug>`
+- `scripts/pipeline_gate_check.sh pre-implement <topic_slug> research/<topic_slug>/approval_registry.md`
 
 If gate fails, stop and list missing approval items.
 

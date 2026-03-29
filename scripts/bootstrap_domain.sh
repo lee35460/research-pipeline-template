@@ -92,8 +92,8 @@ cat > "$MAP_FILE" <<EOF
 | development/docs | Dev docs | implementation notes | generic + ${TOPIC} |
 
 ## Pipeline Gate Usage
-- pre-implement: scripts/pipeline_gate_check.sh pre-implement research/${TOPIC}/approval_registry.md ${TOPIC}
-- pre-complete: scripts/pipeline_gate_check.sh pre-complete research/${TOPIC}/approval_registry.md ${TOPIC}
+- pre-implement: scripts/pipeline_gate_check.sh pre-implement ${TOPIC}
+- pre-complete: scripts/pipeline_gate_check.sh pre-complete ${TOPIC}
 EOF
 
 cat > "$TOPIC_APPROVAL_REGISTRY" <<EOF

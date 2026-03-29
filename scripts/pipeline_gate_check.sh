@@ -2,27 +2,29 @@
 set -euo pipefail
 
 MODE="${1:-}"
+TOPIC="${2:-}"
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DEFAULT_REGISTRY="$ROOT_DIR/.agents/workflows/generic/approval_registry.md"
-REGISTRY_INPUT="${2:-}"
-TOPIC="${3:-}"
+REGISTRY_INPUT="${3:-}"
 
 if [[ -z "$MODE" ]]; then
-  echo "Usage: scripts/pipeline_gate_check.sh <pre-implement|pre-complete> [registry_path] <topic_slug>"
+  echo "Usage: scripts/pipeline_gate_check.sh <pre-implement|pre-complete> <topic_slug> [registry_path]"
   exit 2
 fi
 
 if [[ "$MODE" != "pre-implement" && "$MODE" != "pre-complete" ]]; then
   echo "Unknown mode: $MODE"
-  echo "Usage: scripts/pipeline_gate_check.sh <pre-implement|pre-complete> [registry_path] <topic_slug>"
+  echo "Usage: scripts/pipeline_gate_check.sh <pre-implement|pre-complete> <topic_slug> [registry_path]"
   exit 2
 fi
 
 if [[ -z "$TOPIC" ]]; then
   echo "[GATE-FAIL] topic_slug is required for topic-isolated gate checks"
-  echo "Usage: scripts/pipeline_gate_check.sh <pre-implement|pre-complete> [registry_path] <topic_slug>"
+  echo "Usage: scripts/pipeline_gate_check.sh <pre-implement|pre-complete> <topic_slug> [registry_path]"
   exit 2
 fi
+
+TOPIC_REGISTRY="$ROOT_DIR/research/$TOPIC/approval_registry.md"
 
 if [[ -n "$REGISTRY_INPUT" ]]; then
   if [[ "$REGISTRY_INPUT" = /* ]]; then
@@ -31,7 +33,7 @@ if [[ -n "$REGISTRY_INPUT" ]]; then
     REGISTRY="$ROOT_DIR/$REGISTRY_INPUT"
   fi
 else
-  TOPIC_REGISTRY="$ROOT_DIR/research/$TOPIC/approval_registry.md"
+  # Prefer topic-local registry first.
   if [[ -f "$TOPIC_REGISTRY" ]]; then
     REGISTRY="$TOPIC_REGISTRY"
   else
@@ -184,7 +186,7 @@ case "$MODE" in
     ;;
   *)
     echo "Unknown mode: $MODE"
-    echo "Usage: scripts/pipeline_gate_check.sh <pre-implement|pre-complete> [registry_path] <topic_slug>"
+    echo "Usage: scripts/pipeline_gate_check.sh <pre-implement|pre-complete> <topic_slug> [registry_path]"
     exit 2
     ;;
 esac

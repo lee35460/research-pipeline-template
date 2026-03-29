@@ -28,10 +28,10 @@ Generic constraints stay in:
 - approved: validated basis for spec and implementation
 
 ## Q7) Why does CI fail on pull request?
-Most often due to gate failures:
+Most often due to gate failures in topic-scoped registries:
 - Missing approved implementation_spec row
 - Missing validation pass row
-- Outdated topic registry: research/<topic_slug>/approval_registry.md
+- Missing or outdated `research/<topic_slug>/approval_registry.md` entries
 
 ## Q8) Can I keep demo rows in approval registry?
 Yes for demo-first template distribution. For strict production use, replace demo rows with project rows.

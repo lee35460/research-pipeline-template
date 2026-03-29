@@ -19,7 +19,7 @@
 - 파일: `.agents/workflows/generic/artifact_templates.md`
 
 6. 승인 상태 레지스트리
-- 파일: `.agents/workflows/generic/approval_registry.md`
+- 파일: `research/<topic_slug>/approval_registry.md`
 
 7. 빠른 실행(5단계)
 - 파일: `.agents/workflows/generic/short_prompts_5step.md`
@@ -38,8 +38,8 @@
 - approved만 구현 기준으로 사용
 
 ## Automated Gate Check
-- 구현 전: `scripts/pipeline_gate_check.sh pre-implement .agents/workflows/generic/approval_registry.md`
-- 완료 전: `scripts/pipeline_gate_check.sh pre-complete .agents/workflows/generic/approval_registry.md`
+- 구현 전: `scripts/pipeline_gate_check.sh pre-implement <topic_slug>`
+- 완료 전: `scripts/pipeline_gate_check.sh pre-complete <topic_slug>`
 
 ## Artifact Types
 - source_fact

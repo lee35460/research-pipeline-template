@@ -27,8 +27,9 @@ bash scripts/setup.sh   # first-time setup: permissions + optional bootstrap
 5. Track approval status in `research/<topic_slug>/approval_registry.md`
 
 ## Gate Commands
-- scripts/pipeline_gate_check.sh pre-implement research/<topic_slug>/approval_registry.md <topic_slug>
-- scripts/pipeline_gate_check.sh pre-complete research/<topic_slug>/approval_registry.md <topic_slug>
+- scripts/pipeline_gate_check.sh pre-implement <topic_slug>
+- scripts/pipeline_gate_check.sh pre-complete <topic_slug>
+- optional explicit path: scripts/pipeline_gate_check.sh pre-implement <topic_slug> research/<topic_slug>/approval_registry.md
 
 ## MCP Types and Roles
 
