@@ -11,16 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Ensure gate script executable
-        run: chmod +x scripts/pipeline_gate_check.sh
-
-      - name: Pre-implement gate
-        run: ./scripts/pipeline_gate_check.sh pre-implement .agents/workflows/generic/approval_registry.md toy_topic
-
-      - name: Pre-complete gate
-        run: ./scripts/pipeline_gate_check.sh pre-complete .agents/workflows/generic/approval_registry.md toy_topic
-
       - name: Smoke tests
         run: |
-          chmod +x scripts/bootstrap_domain.sh tests/run_smoke_tests.sh
+          chmod +x scripts/pipeline_gate_check.sh scripts/bootstrap_domain.sh tests/run_smoke_tests.sh
           bash tests/run_smoke_tests.sh

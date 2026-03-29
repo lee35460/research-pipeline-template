@@ -2,7 +2,7 @@
 
 ## Q1) Why does gate check fail by default?
 Because the approval registry starts mostly empty. Add approved spec and validation pass rows in:
-- .agents/workflows/generic/approval_registry.md
+- research/<topic_slug>/approval_registry.md
 
 ## Q2) Which MCP should I use for each stage?
 - NotebookLM MCP: source grounding, synthesis, design structuring
@@ -31,7 +31,7 @@ Generic constraints stay in:
 Most often due to gate failures:
 - Missing approved implementation_spec row
 - Missing validation pass row
-- Outdated approval registry
+- Outdated topic registry: research/<topic_slug>/approval_registry.md
 
 ## Q8) Can I keep demo rows in approval registry?
 Yes for demo-first template distribution. For strict production use, replace demo rows with project rows.

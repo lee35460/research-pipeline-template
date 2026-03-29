@@ -24,11 +24,11 @@ bash scripts/setup.sh   # first-time setup: permissions + optional bootstrap
 2. Apply `.agents/workflows/generic/copilot_system_prompt.md`
 3. Use `/generic-step0-nlm-setup` to create or link your NotebookLM notebook
 4. Follow `generic-step1` → `generic-step5` slash prompts in order
-5. Track approval status in `.agents/workflows/generic/approval_registry.md`
+5. Track approval status in `research/<topic_slug>/approval_registry.md`
 
 ## Gate Commands
-- scripts/pipeline_gate_check.sh pre-implement .agents/workflows/generic/approval_registry.md <topic_slug>
-- scripts/pipeline_gate_check.sh pre-complete .agents/workflows/generic/approval_registry.md <topic_slug>
+- scripts/pipeline_gate_check.sh pre-implement research/<topic_slug>/approval_registry.md <topic_slug>
+- scripts/pipeline_gate_check.sh pre-complete research/<topic_slug>/approval_registry.md <topic_slug>
 
 ## MCP Types and Roles
 
