@@ -59,6 +59,36 @@ set -e
 rm -f "$TMPFILE"
 if [[ $EXIT -eq 0 ]]; then ok "pre-implement approved → exit 0"; else fail "pre-implement approved → exit 0 (got $EXIT)"; fi
 
+# ── Gate script: pre-implement rejects invalid status enums → exit 1 ────────
+echo ""
+echo "[TEST] gate_check: pre-implement rejects invalid Status enums → exit 1"
+
+TMPFILE="$(mktemp)"
+cat >> "$TMPFILE" <<'ROW'
+| Topic | Date | Artifact | Type | Status |
+|---|---|---|---|---|
+| smoke_topic | 2026-03-29 | spec_v1 | implementation_spec | pending |
+ROW
+set +e
+"$ROOT_DIR/scripts/pipeline_gate_check.sh" pre-implement "$TOPIC" "$TMPFILE" > /dev/null 2>&1
+EXIT=$?
+set -e
+rm -f "$TMPFILE"
+if [[ $EXIT -eq 1 ]]; then ok "pre-implement invalid status pending → exit 1"; else fail "pre-implement invalid status pending → exit 1 (got $EXIT)"; fi
+
+TMPFILE="$(mktemp)"
+cat >> "$TMPFILE" <<'ROW'
+| Topic | Date | Artifact | Type | Status |
+|---|---|---|---|---|
+| smoke_topic | 2026-03-29 | spec_v1 | implementation_spec | Approved |
+ROW
+set +e
+"$ROOT_DIR/scripts/pipeline_gate_check.sh" pre-implement "$TOPIC" "$TMPFILE" > /dev/null 2>&1
+EXIT=$?
+set -e
+rm -f "$TMPFILE"
+if [[ $EXIT -eq 1 ]]; then ok "pre-implement invalid status Approved → exit 1"; else fail "pre-implement invalid status Approved → exit 1 (got $EXIT)"; fi
+
 # ── Gate script: topic isolation on pre-implement → exit 1 ─────────────────
 echo ""
 echo "[TEST] gate_check: pre-implement ignores other topic rows → exit 1"
@@ -90,6 +120,22 @@ EXIT=$?
 set -e
 rm -f "$TMPFILE"
 if [[ $EXIT -eq 0 ]]; then ok "pre-complete pass → exit 0"; else fail "pre-complete pass → exit 0 (got $EXIT)"; fi
+
+# ── Gate script: pre-complete rejects invalid final verdict enum → exit 1 ───
+echo ""
+echo "[TEST] gate_check: pre-complete rejects invalid Final Verdict enum → exit 1"
+TMPFILE="$(mktemp)"
+cat >> "$TMPFILE" <<'ROW'
+| Topic | Date | Artifact | Risk Level | Final Verdict |
+|---|---|---|---|---|
+| smoke_topic | 2026-03-29 | validation_v1 | low | passed |
+ROW
+set +e
+"$ROOT_DIR/scripts/pipeline_gate_check.sh" pre-complete "$TOPIC" "$TMPFILE" > /dev/null 2>&1
+EXIT=$?
+set -e
+rm -f "$TMPFILE"
+if [[ $EXIT -eq 1 ]]; then ok "pre-complete invalid verdict passed → exit 1"; else fail "pre-complete invalid verdict passed → exit 1 (got $EXIT)"; fi
 
 # ── Gate script: topic isolation on pre-complete → exit 1 ──────────────────
 echo ""

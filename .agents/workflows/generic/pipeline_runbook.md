@@ -5,6 +5,7 @@
 - 편집기 에이전트를 실행 파이프라인 관리자로 운영
 
 ## 표준 단계 (Strict)
+0. Cold Start (Domain Bootstrap)
 1. Knowledge Capture
 2. NotebookLM Storage
 3. Structuring
@@ -13,6 +14,14 @@
 6. Final Validation
 
 ## 단계별 입출력
+
+### 0) Cold Start (Domain Bootstrap)
+입력:
+- 새로운 연구 주제(Topic)
+
+출력/액션:
+- 반드시 터미널에서 `scripts/bootstrap_domain.sh <topic_slug>`를 실행하여 토픽 전용 폴더, `approval_registry.md`, 격리된 Git 브랜치(`research/<topic_slug>`)를 생성
+- 이 단계가 완료되기 전에는 Step 1(Knowledge Capture)로 넘어갈 수 없음
 
 ### 1) Knowledge Capture
 입력:

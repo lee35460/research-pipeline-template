@@ -130,7 +130,7 @@ has_matching_row() {
           next
         }
         row_type = tolower(trim(cols[type_col]))
-        row_status = tolower(trim(cols[status_col]))
+        row_status = trim(cols[status_col])
         if (row_type == "implementation_spec" && row_status == "approved") {
           found = 1
           exit 0
@@ -138,9 +138,9 @@ has_matching_row() {
       } else if (mode == "pre-complete") {
         row_verdict = ""
         if (verdict_col > 0) {
-          row_verdict = tolower(trim(cols[verdict_col]))
+          row_verdict = trim(cols[verdict_col])
         } else if (status_col > 0) {
-          row_verdict = tolower(trim(cols[status_col]))
+          row_verdict = trim(cols[status_col])
         }
 
         if (row_verdict == "pass") {
